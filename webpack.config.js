@@ -4,11 +4,29 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 
 module.exports = {
-    entry: './src/index.js',
-    output: {
-        filename: 'bundle.js',
-        path: path.resolve(__dirname, 'dist')
+    // entry: './src/index.js',
+    entry: {
+        index: './src/index.js',
+        nav: './src/nav.js'
     },
+
+    // map compiled to source for debugging
+    devtool:'inline-source-map',
+
+    devServer: {
+        static: './dist',
+    },
+    
+    output: {
+        filename: '[name].bundle.js',
+        path: path.resolve(__dirname, 'dist'),
+        clean: true,
+    },
+
+    optimization: {
+        runtimeChunk: 'single',
+    },
+    
     // TODO: change to production
     mode: 'development',
 
@@ -22,7 +40,7 @@ module.exports = {
     ],
     
     
-    
+    // extract css to external file
     module: {
         rules: [
             {
